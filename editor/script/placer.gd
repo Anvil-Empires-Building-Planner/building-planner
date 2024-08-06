@@ -2,8 +2,13 @@ extends Camera3D
 
 @export var ray_length: int = 1000
 @export var cursor: BuildableCursor = null
+@export var snapped_status: Label
+
+enum States {Free, Snapped, Overlapping}
+var state = States.Free
 
 var target_position: Vector3 = Vector3.ZERO
+var is_snapped = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,7 +17,20 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	get_target_position()
-	cursor.position = target_position
+	var snap_offset = cursor.calculate_snap()
+	
+	var distance_to_cursor = target_position.distance_to(cursor.global_position)
+	
+	if state == States.Free:
+		cursor.global_position = target_position
+	
+	if state == States.Snapped:
+		if distance_to_cursor > 3:
+			state = States.Free
+			cursor.global_position = target_position
+		
+			
+		
 	
 func get_target_position():
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -26,3 +44,23 @@ func get_target_position():
 	var raycast_result = space.intersect_ray(ray_query)
 	if not raycast_result.is_empty():
 		target_position = raycast_result.position
+
+
+func _on_cursor_new_snap_offset(new_offset: Vector3):
+	if state == States.Overlapping:
+		return
+		
+	var distance_to_cursor = target_position.distance_to(cursor.global_position)
+	snapped_status.text = "Piece Snapped: Yes"
+	state = States.Snapped
+	cursor.position = cursor.position - new_offset
+
+
+func _on_cursor_no_snap_offset():
+	snapped_status.text = "Piece Snapped: No"
+	state = States.Free
+	cursor.position = target_position
+
+
+func _on_cursor_overlapping(overlapping: bool):
+	pass
