@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c3lk8mtwxyj5l"]
+[gd_scene load_steps=17 format=3 uid="uid://c3lk8mtwxyj5l"]
 
 [ext_resource type="Script" path="res://editor/script/cursor.gd" id="1_8uddu"]
 [ext_resource type="Script" path="res://editor/script/camera_controller.gd" id="1_hw85h"]
@@ -44,12 +44,6 @@ outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 5
 
-[sub_resource type="LabelSettings" id="LabelSettings_sox1h"]
-font_size = 18
-outline_size = 6
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 5
-
 [sub_resource type="LabelSettings" id="LabelSettings_1lj15"]
 font_size = 18
 outline_size = 6
@@ -67,6 +61,7 @@ size = 17.19
 script = ExtResource("4_y7a0h")
 cursor = NodePath("../../Cursor")
 snapped_status = NodePath("../../CanvasLayer/Info Panel/VBoxContainer/Statuses Panel/Snapped Status")
+snap_threshold = 1.5
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -75,8 +70,8 @@ light_energy = 0.8
 [node name="Cursor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.13381, 24.279, 2.30481)
 script = ExtResource("1_8uddu")
-cursor_mesh = ExtResource("5_b8gof")
-old_mesh = ExtResource("4_qeorx")
+cursor_mesh = ExtResource("4_qeorx")
+old_mesh = ExtResource("5_b8gof")
 metadata/_edit_group_ = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
@@ -142,17 +137,12 @@ vertical_alignment = 1
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/Info Panel/VBoxContainer/Statuses Panel"]
 layout_mode = 2
 
-[node name="Overlapping Status" type="Label" parent="CanvasLayer/Info Panel/VBoxContainer/Statuses Panel"]
-layout_mode = 2
-text = "Piece Overlapping: Yes"
-label_settings = SubResource("LabelSettings_sox1h")
-vertical_alignment = 1
-
 [node name="Snapped Status" type="Label" parent="CanvasLayer/Info Panel/VBoxContainer/Statuses Panel"]
 layout_mode = 2
 text = "Piece Snapped: Yes"
 label_settings = SubResource("LabelSettings_1lj15")
 vertical_alignment = 1
 
+[connection signal="is_overlapping" from="Cursor" to="CameraContoller/Camera3D" method="_on_cursor_overlapping"]
 [connection signal="new_snap_offset" from="Cursor" to="CameraContoller/Camera3D" method="_on_cursor_new_snap_offset"]
 [connection signal="no_snap_offset" from="Cursor" to="CameraContoller/Camera3D" method="_on_cursor_no_snap_offset"]
