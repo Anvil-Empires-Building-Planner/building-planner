@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://editor/script/cursor.gd" id="1_8uddu"]
 [ext_resource type="Script" path="res://editor/script/camera_controller.gd" id="1_hw85h"]
-[ext_resource type="Resource" uid="uid://cuc5l1hs4w1rt" path="res://editor/buildables/foundation_3x3.tres" id="2_rrh33"]
-[ext_resource type="Resource" uid="uid://odu5lflbdktl" path="res://editor/buildables/foundation_gate.tres" id="3_wkfpg"]
+[ext_resource type="Resource" uid="uid://ck4qq4plipkdm" path="res://editor/buildables/GridFoundation_square_straight.tres" id="4_qeorx"]
 [ext_resource type="Script" path="res://editor/script/placer.gd" id="4_y7a0h"]
+[ext_resource type="Resource" uid="uid://cvb4ikoda48qp" path="res://editor/buildables/GridFoundation_triangular_straight.tres" id="5_b8gof"]
 [ext_resource type="Texture2D" uid="uid://ck1sofmxu5rna" path="res://editor/textures/uv_grid.png" id="6_skn7o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rgtkv"]
@@ -44,7 +44,7 @@ outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 5
 
-[sub_resource type="LabelSettings" id="LabelSettings_sox1h"]
+[sub_resource type="LabelSettings" id="LabelSettings_1lj15"]
 font_size = 18
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
@@ -55,22 +55,22 @@ shadow_size = 5
 [node name="CameraContoller" type="Node3D" parent="."]
 script = ExtResource("1_hw85h")
 
-[node name="Camera3D" type="Camera3D" parent="CameraContoller" node_paths=PackedStringArray("cursor")]
+[node name="Camera3D" type="Camera3D" parent="CameraContoller" node_paths=PackedStringArray("cursor", "snapped_status")]
 transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 10, 0)
 size = 17.19
 script = ExtResource("4_y7a0h")
 cursor = NodePath("../../Cursor")
+snapped_status = NodePath("../../CanvasLayer/Info Panel/VBoxContainer/Statuses Panel/Snapped Status")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 light_energy = 0.8
 
-[node name="Cursor" type="Node3D" parent="." node_paths=PackedStringArray("overlap_label")]
+[node name="Cursor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.13381, 24.279, 2.30481)
 script = ExtResource("1_8uddu")
-overlap_label = NodePath("../CanvasLayer/Info Panel/VBoxContainer/Statuses Panel/Overlapping Status")
-cursor_mesh = ExtResource("2_rrh33")
-old_mesh = ExtResource("3_wkfpg")
+cursor_mesh = ExtResource("4_qeorx")
+old_mesh = ExtResource("5_b8gof")
 metadata/_edit_group_ = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
@@ -136,8 +136,8 @@ vertical_alignment = 1
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/Info Panel/VBoxContainer/Statuses Panel"]
 layout_mode = 2
 
-[node name="Overlapping Status" type="Label" parent="CanvasLayer/Info Panel/VBoxContainer/Statuses Panel"]
+[node name="Snapped Status" type="Label" parent="CanvasLayer/Info Panel/VBoxContainer/Statuses Panel"]
 layout_mode = 2
-text = "Piece Overlapping: Yes"
-label_settings = SubResource("LabelSettings_sox1h")
+text = "Piece Snapped: No"
+label_settings = SubResource("LabelSettings_1lj15")
 vertical_alignment = 1
