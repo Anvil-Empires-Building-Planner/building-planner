@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://t4stssan2pn1"
+path="res://.godot/imported/GridFoundation_triangular_straight.obj.obj-b2beea83ff97c45a8743bb9d2324f67a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/GridFoundation_triangular_straight.obj.obj-b2beea83ff97c45a8743bb9d2324f67a.mesh"]
+
+source_file="res://editor/meshes/GridFoundation_triangular_straight.obj.obj"
+dest_files=["res://.godot/imported/GridFoundation_triangular_straight.obj.obj-b2beea83ff97c45a8743bb9d2324f67a.mesh", "res://.godot/imported/GridFoundation_triangular_straight.obj.obj-b2beea83ff97c45a8743bb9d2324f67a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
